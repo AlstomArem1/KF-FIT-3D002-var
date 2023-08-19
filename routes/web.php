@@ -27,6 +27,8 @@ Route::get('test2', function () {
     return view('test2');
 });
 
+
+
 Route::get('Test', function () {
     echo "Hello Test";
 });
@@ -37,4 +39,14 @@ Route::get('product', function (Request $request){
 
 Route::get('user/detail/{id}/{name?}',function($id, $name = ''){
     return "User detail: " . $id . $name;
+});
+
+Route::get('master', function () {
+    return view('client.layout.master');
+});
+Route::get('product', function () {
+    return view('client.pages.product.list');
+});
+Route::get('blog/detail', function () {
+    return view('client.pages.blog.detail');
 });

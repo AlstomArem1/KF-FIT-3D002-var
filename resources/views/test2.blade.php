@@ -12,15 +12,19 @@
         $arrayAnimal = ['Meo', 'Cho', 'Ca', 'Gau', 'Huu Cao Co'];
     @endphp
     @foreach ($arrayAnimal as $key => $animal)
-        {{ $animal }}
-        @if (($key+1) % 2 === 0)
-            {!! "<span style='color:red'>" . $animal . '</span><br>' !!}
-        @else
-            {!! "<span style='color:green'>" . $animal . '</span><br>' !!}
+        {{-- {{ $animal }} --}}
+        {{-- {{ $loop->index }} --}}
+        {{-- {{ $loop->interation }} --}}
+
+        @if ($loop->even)
+            {!! $loop->iteration . "<span style='color:red'>" . $animal . '</span><br>' !!}
+        @elseif($loop->odd)
+            {!! $loop->iteration  . "<span style='color:green'>" . $animal . '</span><br>' !!}
         @endif
     @endforeach
     @foreach ($arrayPoint as $point)
         {{ $point }} <br>
     @endforeach
+
 </body>
 </html>
