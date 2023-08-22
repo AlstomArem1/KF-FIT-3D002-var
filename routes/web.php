@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,34 +18,37 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('test', function () {
-    return view('test');
+Route::get('test', function (){
+   return view('test');
 });
 
-Route::get('test2', function () {
+Route::get('test2', function (){
     return view('test2');
-});
+ });
 
-
-
-Route::get('Test', function () {
-    echo "Hello Test";
-});
-
+//use Illuminate\Http\Request;
+//http://127.0.0.1:8000/product?name=aaaa
 Route::get('product', function (Request $request){
-    echo "Product List" . $request->query('name');
+    echo 'Product List'. $request->query('name');
 });
 
-Route::get('user/detail/{id}/{name?}',function($id, $name = ''){
-    return "User detail: " . $id . $name;
+//http://127.0.0.1:8000/user/detail/13/ngyuyenvana
+//http://127.0.0.1:8000/user/detail/13
+Route::get('user/detail/{id}/{name?}', function ($id, $name = ''){
+    return 'User detail : '.$id. $name;
 });
 
-Route::get('master', function () {
+Route::get('master', function (){
     return view('client.layout.master');
 });
-Route::get('product', function () {
-    return view('client.pages.product.list');
+
+Route::get('home', function(){
+    return view('client.pages.home');
 });
-Route::get('blog/detail', function () {
-    return view('client.pages.blog.detail');
-});
+// Route::get('product', function (){
+//     return view('client.pages.product.list');
+// });
+
+// Route::get('blog/detail', function (){
+//     return view('client.pages.blog.detail');
+// });

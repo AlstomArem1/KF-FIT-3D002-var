@@ -31,7 +31,7 @@
     </style>
 </head>
 <body>
-    @include('client.pages.product.header')
+    @include('client.pages.header')
    <main>
     <div class="nav">Navigation</div>
     <aside>
@@ -44,7 +44,7 @@
         @yield('test')
     </div>
    </main>
-   @include('client.pages.product.footer')
+   @include('client.pages.footer')
 
    @yield('js-custom')
 </body>
