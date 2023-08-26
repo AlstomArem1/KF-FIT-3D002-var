@@ -1,11 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
 
-
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,14 +33,6 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-// Route::get('admin/user', function () {
-//     return view('admin.pages.user.list');
-// });
+Route::get('admin/product', [ProductController::class, 'index']);
 
-// Route::get('admin/product', function () {
-//     return view('admin.pages.product.list');
-// });
-
-Route::get('admin/user',[UserController::class,'index']);
-
-Route::get('admin/product',[ProducController::class,'index']);
+Route::get('admin/user', [UserController::class, 'index']);
