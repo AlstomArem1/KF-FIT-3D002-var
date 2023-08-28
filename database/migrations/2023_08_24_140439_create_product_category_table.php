@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255)->nullable();;
+            $table->string('name',255)->nullable();// Mặc định: nullable or default(1)
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

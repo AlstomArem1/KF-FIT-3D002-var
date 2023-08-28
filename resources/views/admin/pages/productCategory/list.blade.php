@@ -7,13 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>ProductCategory List</h1>
-                        <button  style="padding: 5px 30px"><a href="http://localhost:8000/admin/product_categories/add">Add</a></button>
+                        <h1>Product Category List</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">ProductCategory List</li>
+                            <li class="breadcrumb-item active">Product Category List</li>
                         </ol>
                     </div>
                 </div>
@@ -27,7 +26,14 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Bordered Table</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h3 class="card-title"></h3>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <a class="btn btn-primary" href="{{ route('admin.productCategory.add') }}">Add</a>
+                                    </div>
+                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">

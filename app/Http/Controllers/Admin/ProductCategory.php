@@ -14,5 +14,7 @@ class ProductCategory extends Controller
     public function add(){
         return view('admin.pages.productCategory.create');
     }
-
+    public function store(){
+        dd(1);
+    }
 }

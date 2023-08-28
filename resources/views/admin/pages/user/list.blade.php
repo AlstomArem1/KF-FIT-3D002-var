@@ -26,27 +26,31 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Bordered Table</h3>
+                                <h3 class="card-title">Danh sách sinh viên IT</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th style="width: 10px">#</th>
+
+                                            <th style="width: 10px">Number</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Created At</th>
+                                            <th>Updated At</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr>
+
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->created_at }}</td>
+                                                <td>{{ $user->updated_at }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

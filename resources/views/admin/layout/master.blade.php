@@ -33,11 +33,11 @@
   <!-- Navbar -->
   @include('admin.pages.nav')
   <!-- /.navbar -->
+  @yield('content')
 
   <!-- Main Sidebar Container -->
   @include('admin.pages.sidebar')
 
-  @yield('content')
 
   <!-- Content Wrapper. Contains page content -->
   <!-- /.content-wrapper -->
@@ -46,6 +46,7 @@
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
+
   </aside>
   <!-- /.control-sidebar -->
 </div>

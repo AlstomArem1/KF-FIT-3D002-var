@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProductCategory;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +33,18 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+//http://localhost:8000/admin/
+Route::prefix('admin')->name('admin.')->group(function(){
+    //Product
+    Route::get('product', [ProductController::class, 'index'])->name('product.list');
 
-Route::get('admin/product_categories',[ProductCategory::class, 'index']);
-Route::get('admin/product_categories/add',[ProductCategory::class, 'add']);
+    //User
+    Route::get('user', [UserController::class, 'index'])->name('user.list');
+
+    //Product Category
+    Route::get('product_category', [ProductCategory::class, 'index'])->name('productCategory.list');
+    //Add
+    Route::get('product_category/add', [ProductCategory::class, 'add'])->name('productCategory.add');
+    //Store : Chưa có web
+    Route::post('product_category/store', [ProductCategory::class, 'store'])->name('productCategory.store');
+});

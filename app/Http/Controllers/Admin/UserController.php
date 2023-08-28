@@ -15,7 +15,7 @@ class UserController extends Controller
 
         // $user = [1, 2, 3, 4, 5];
         // $text = 'bbbb';
-        $users = DB::select('select * from users');
+        $users = DB::select('select * from users');//learn: MySQL
 
 
         return view('admin.pages.user.list', ['users' => $users]);
