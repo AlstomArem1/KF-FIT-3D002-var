@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\Admin\ProductCategory;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
@@ -33,7 +32,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-//http://localhost:8000/admin/
 Route::prefix('admin')->name('admin.')->group(function(){
     //Product
     Route::get('product', [ProductController::class, 'index'])->name('product.list');
@@ -45,6 +43,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('product_category', [ProductCategory::class, 'index'])->name('productCategory.list');
     //Add
     Route::get('product_category/add', [ProductCategory::class, 'add'])->name('productCategory.add');
-    //Store : Chưa có web
+    //Store
     Route::post('product_category/store', [ProductCategory::class, 'store'])->name('productCategory.store');
+    //Detail
+    Route::get('product_category/{id}', [ProductCategory::class, 'detail'])->name('productCategory.detail');
+
 });
