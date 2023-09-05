@@ -26,7 +26,7 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">ADD: Welcome</h3>
+                                <h3 class="card-title">Detail</h3>
                             </div>
                             <!-- /.card-header -->
                             @if ($errors->any())
@@ -39,11 +39,11 @@
                                 </div>
                             @endif
                             <!-- form start -->
-                            <form role="form" method="post" action="{{ route('admin.productCategory.store') }}">
+                            <form role="form" method="post" action="{{ route('admin.productCategory.update',['id'=>$productCategory->id]) }}">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="name">Name</label>
-                                        <input name="name" type="text" value="{{ old('name') }}"
+                                        <input name="name" type="text" value="{{ $productCategory->name }}"
                                             class="form-control" id="name"
                                             placeholder="Enter name" >
                                         @error('name')
@@ -54,9 +54,9 @@
                                         <label>Status</label>
                                         <select name="status" class="custom-select">
                                             <option value="">---Please Select---</option>
-                                            <option {{old('status') === '1'? 'selected' : '' }} value="1">Show</option>
+                                            <option {{$productCategory->status ? 'selected' : '' }} value="1">Show</option>
 
-                                            <option {{old('status') === '0'? 'selected' : '' }} value="0">Hide</option>
+                                            <option {{$productCategory->status ? 'selected' : '' }} value="0">Hide</option>
                                         </select>
                                         @error('status')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -64,9 +64,10 @@
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
-                                {{-- @csrf --}}
+                                @csrf
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </form>
                         </div>

@@ -49,6 +49,8 @@
                                             <th>Name</th>
                                             <th>Status</th>
                                             <th>Created At</th>
+                                            <th>Detail</th>
+                                            <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,6 +65,9 @@
                                           <td>{{$productCategory->created_at}}</td>
                                           <td>
                                             <a href="{{ route('admin.productCategory.detail',['id' => $productCategory->id]) }}" class="btn btn-primary">Detail</a>
+                                          </td>
+                                          <td>
+                                            <a onclick="return confirm('Are you sure')" class="btn btn-danger" href="{{ route('admin.productCategory.destroy', ['id'=>$productCategory->id]) }}">Delete</a>
                                           </td>
                                        </tr>
                                        @empty

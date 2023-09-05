@@ -47,5 +47,10 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::post('product_category/store', [ProductCategory::class, 'store'])->name('productCategory.store');
     //Detail
     Route::get('product_category/{id}', [ProductCategory::class, 'detail'])->name('productCategory.detail');
+    //Update
+    Route::post('product_category/update/{id}', [ProductCategory::class, 'update'])->name('productCategory.update');
+    //Delete
+    Route::get('product_category/destroy/{id}', [ProductCategory::class, 'destroy'])->name('productCategory.destroy');
+
 
 });
