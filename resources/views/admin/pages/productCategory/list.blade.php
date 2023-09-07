@@ -9,6 +9,7 @@
                     <div class="col-sm-6">
                         <h1>Product Category List</h1>
                     </div>
+
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -33,7 +34,20 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h3 class="card-title"></h3>
+                                        <h3 class="card-title" >
+                                            <form method="get">
+                                                <input type="text" value="{{ $keyword }}" placeholder="Search..." name="keyword">
+                                                <select>
+                                                    <option value="">---Please Select---</option>
+                                                    <option value="latest">Latest</option>
+                                                    <option value="oldest">Oldest</option>
+
+                                                </select>
+                                                <button class="btn btn-primary" type="submit" >Search</button>
+
+                                            </form>
+
+                                        </h3>
                                     </div>
                                     <div class="col-md-12 text-right">
                                         <a class="btn btn-primary" href="{{ route('admin.productCategory.add') }}">Add</a>
@@ -83,9 +97,10 @@
                             <div class="card-footer clearfix">
                                 <ul class="pagination pagination-sm m-0 float-right">
                                     <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    @for ($i = 1; $i <= $totalPages; $i++)
+                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}"><a class="page-link" href="?page={{ $i }}">{{ $i }}</a></li>
+
+                                    @endfor
                                     <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                                 </ul>
                             </div>

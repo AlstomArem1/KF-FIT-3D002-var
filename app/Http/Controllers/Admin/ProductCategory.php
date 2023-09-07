@@ -12,9 +12,19 @@ use Illuminate\Support\Facades\DB;
 class ProductCategory extends Controller
 {
     //
-    public function index(){
-        $productCategories = DB::select('select * from product_categories order by created_at desc');
-        return view('admin.pages.productCategory.list', ['productCategories' => $productCategories]);
+    public function index(Request $request){
+        // $page = $_GET['page'] ?? 1;
+
+        $keyword = $request->keyword;
+        $page = $request->page ?? 1;
+        $itemPerPage = 2;
+        $offset = ($page - 1) * $itemPerPage;
+        $productCategories = DB::select('select * from product_categories where name like ? order by created_at desc limit ?,?',['%' . $keyword . '%',$offset,$itemPerPage]);
+        $totalRecords = DB::select('select count(*) as sun from product_categories')[0]->sun;
+
+        $totalPages = ceil($totalRecords / $itemPerPage);
+
+        return view('admin.pages.productCategory.list', ['productCategories' => $productCategories, 'totalPages' => $totalPages, 'currentPage' => $page, 'keyword' => $keyword]);
 
         // return view('admin.pages.productCategory.list', compact($productCategories));
         // return view('admin.pages.productCategory.list')->with('productCategories', $productCategories);
