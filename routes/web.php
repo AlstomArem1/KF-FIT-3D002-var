@@ -33,8 +33,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 Route::prefix('admin')->name('admin.')->group(function(){
-    //Product
-    Route::get('product', [ProductController::class, 'index'])->name('product.list');
+
 
     //User
     Route::get('user', [UserController::class, 'index'])->name('user.list');
@@ -51,6 +50,10 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::post('product_category/update/{id}', [ProductCategory::class, 'update'])->name('productCategory.update');
     //Delete
     Route::get('product_category/destroy/{id}', [ProductCategory::class, 'destroy'])->name('productCategory.destroy');
+
+    //Product
+    // Route::get('product', [ProductController::class, 'index'])->name('product.list');
+    Route::resource('product', ProductController::class);
 
 
 });
