@@ -34,7 +34,7 @@ class ProductCategory extends Controller
         $sqlSelect .= ' limit ?,?';
         $paramsBinding[] =  $offset;
         $paramsBinding[] =  $itemPerPage;
-
+        // select * from product_categories  order by created_at $sort limit ?,?
 
 
 

@@ -28,3 +28,4 @@ class UserController extends Controller
         //return view('admin.pages.user.list', compact('users', 'test'));
     }
 }
+?>

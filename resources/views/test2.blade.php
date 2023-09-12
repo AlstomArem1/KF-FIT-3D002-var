@@ -22,6 +22,7 @@
             {!! $loop->iteration  . "<span style='color:green'>" . $animal . '</span><br>' !!}
         @endif
     @endforeach
+
     @foreach ($arrayPoint as $point)
         {{ $point }} <br>
     @endforeach

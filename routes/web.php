@@ -54,6 +54,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
     //Product
     // Route::get('product', [ProductController::class, 'index'])->name('product.list');
     Route::resource('product', ProductController::class);
+    // php artisan make:controller Admin/Productroller --resource
 
 
 });

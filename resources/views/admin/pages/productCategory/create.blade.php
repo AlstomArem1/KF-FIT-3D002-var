@@ -29,7 +29,7 @@
                                 <h3 class="card-title">ADD: Welcome</h3>
                             </div>
                             <!-- /.card-header -->
-                            @if ($errors->any())
+                            {{-- @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
                                         @foreach ($errors->all() as $error)
@@ -37,7 +37,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            @endif
+                            @endif --}}
                             <!-- form start -->
                             <form role="form" method="post" action="{{ route('admin.productCategory.store') }}">
                                 <div class="card-body">
