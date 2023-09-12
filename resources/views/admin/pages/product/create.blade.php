@@ -129,8 +129,10 @@
                                         <label>Product Category</label>
                                         <select name="product_category_id " class="custom-select">
                                             <option value="">---Please Select---</option>
-                                            <option value="1">a</option>
-                                            <option value="0">b</option>
+                                            @foreach ($productCategories as $productCaterogy)
+                                                <option value="{{ $productCaterogy->id }}">{{ $productCaterogy->name }}</option>
+                                            @endforeach
+
                                         </select>
                                         @error('product_category_id ')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -172,8 +174,21 @@
         $(document).ready(function() {
             $('#name').on('keyup', function() {
                 var name = $('#name').val();
-                console.log('name', name);
+
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('admin.product.create.slug') }}", //action of form
+                    data: {
+                        'name': name,
+                        '_token': '{{ csrf_token() }}'
+                    },
+                    success: function(response){
+                        $('#slug').val(response.slug);
+                    }
+                });
+
             });
+
         });
     </script>
 @endsection

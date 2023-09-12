@@ -56,5 +56,6 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::resource('product', ProductController::class);
     // php artisan make:controller Admin/Productroller --resource
 
+    Route::post('product/slug',[ProductController::class, 'createSlug'])->name('product.create.slug');
 
 });
