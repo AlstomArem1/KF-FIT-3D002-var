@@ -22,19 +22,11 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-            'name' => 'required|min:3|max:255|unique:product,name',
+            'name' => 'required|min:3|max:255|unique:products,name',
             'price' => 'integer|min:1|max:999999999'
 
         ];
     }
-    public function messages():array{
-        return [
-            'name.required' => 'Ten buoc phai nhap!',
-            'name.min' => 'Ten phai tren 3 ky tu',
-            'name.max' => 'Ten phai duoi 255 ky tu',
-            'price.integer' => 'Trang thai buoi phai chon!'
-        ];
-    }
+
 }
 

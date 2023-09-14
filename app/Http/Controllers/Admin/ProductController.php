@@ -18,8 +18,9 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products = DB::table('products')->get();
-        return view('admin.pages.product.list',['products' => $products]);
+       //Query Builder
+       $products = DB::table('products')->paginate(1);
+       return view('admin.pages.product.list', ['products' => $products]);
     }
 
     /**
@@ -41,22 +42,24 @@ class ProductController extends Controller
 
         //
         $check = DB::table('products')->insert([
-            'name'=> $request->name,
-            'slug'=> $request->slug,
-            'price'=> $request->price,
-            'discount_price'=> $request->discount_price,
+            "name" => $request->name,
+            "slug" => $request->slug,
+            "price" => $request->price,
+            "discount_price" =>$request->discount_price,
+            "short_description" => $request->short_description,
+            "description" => $request->description,
             "information" => $request->information,
             "qty" => $request->qty,
             "shipping" => $request->shipping,
-            "weight" =>  $request->weight,
-            "status" =>  $request->status,
-            "product_category_id_" =>  $request->product_category_id_,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            "weight" =>$request->weight,
+            "status" => $request->status,
+            "product_category_id" => $request->product_category_id,
+            "created_at" => Carbon::now(),
+            "updated_at" => Carbon::now()
 
         ]);
         // dd($request->all());
-        $message = $check ? 'tao san pha thanh cong' : 'tao san pha that bai';
+        $message = $check ? 'tao san pham thanh cong' : 'tao san pham that bai';
 
         return redirect()->route('admin.product.index')->with('message',$message);
     }

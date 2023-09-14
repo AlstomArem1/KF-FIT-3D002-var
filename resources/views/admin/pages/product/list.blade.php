@@ -26,14 +26,15 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-8">
 
-                                </div>
-                                <div class="col-md-12 text-right">
-                                    <a class="btn btn-primary" href="{{ route('admin.product.create') }}">Add</a>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <a class="btn btn-primary" href="{{ route('admin.product.create') }}">Add</a>
+                                    </div>
                                 </div>
                             </div>
-
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table class="table table-bordered">
@@ -42,18 +43,17 @@
                                             <th style="width: 10px">#</th>
                                             <th>Name</th>
                                             <th>Price</th>
-                                            <th>short_description</th>
-
+                                            <th>Short Description</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($products as $product)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $product->name }}</td>
-                                            <td>{{ $product->price }}</td>
-                                            <td>{{ $product->short_description }}</td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $product->name }}</td>
+                                                <td>{{ $product->price }}</td>
+                                                <td>{!! $product->short_description !!}</td>
+                                            </tr>
                                         @empty
                                             <tr>
                                                 <td colspan="4">No data</td>
@@ -64,13 +64,14 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
-                                <ul class="pagination pagination-sm m-0 float-right">
+                                {{ $products->links() }}
+                                {{-- <ul class="pagination pagination-sm m-0 float-right">
                                     <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                                     <li class="page-item"><a class="page-link" href="#">1</a></li>
                                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                                     <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </div>
                         <!-- /.card -->
