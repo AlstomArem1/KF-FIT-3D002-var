@@ -30,7 +30,8 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form" method="post" action="{{ route('admin.product.store') }}">
+                            <form role="form" method="post" action="{{ route('admin.product.store') }}"
+                            enctype="multipart/form-data">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="name">Name</label>
@@ -138,11 +139,19 @@
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="form-group">
+                                        <label for="image">image</label>
+                                        <input name="image" type="file" value="{{ old('image') }}"
+                                            class="form-control" id="image" placeholder="123">
+                                        @error('image')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
 
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button onclick="return confirm('Are you sure')" type="submit" class="btn btn-primary">Create</button>
                                 </div>
                                 @csrf
                             </form>

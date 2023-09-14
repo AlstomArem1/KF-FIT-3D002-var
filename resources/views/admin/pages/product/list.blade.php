@@ -15,6 +15,11 @@
                             <li class="breadcrumb-item active">Product List</li>
                         </ol>
                     </div>
+                    @if (session('message'))
+                    <div class="col-sm-12 alert alert-success">
+                        {{ session('message')}}
+                    </div>
+                @endif
                 </div>
             </div><!-- /.container-fluid -->
         </section>
@@ -43,7 +48,9 @@
                                             <th style="width: 10px">#</th>
                                             <th>Name</th>
                                             <th>Price</th>
+                                            <th>Image</th>
                                             <th>Short Description</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -52,7 +59,24 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $product->name }}</td>
                                                 <td>{{ $product->price }}</td>
+                                                <td>
+                                                    @php
+                                                        $imagesLink = is_null($product->image) || !file_exists('image/'.$product->image)
+                                                        ? 'https://phutungnhapkhauchinhhang.com/up-content/uploads/2020/06/default-thumbnail.jpg'
+                                                        : asset('images/'. $product->image);
+                                                    @endphp
+                                                    <img src="{{ $imagesLink }}" alt="{{ $product->name}}" width="150" height="150" />
+                                                </td>
                                                 <td>{!! $product->short_description !!}</td>
+                                                <td>
+                                                  <form
+                                                  action="{{ route('admin.product.destroy',['product' => $product->id ]) }}"
+                                                  method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="sumbit" name="sumbit" class="btn btn-danger">Delete</button>
+                                                  </form>
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr>
@@ -64,7 +88,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
-                                {{ $products->links() }}
+                                {{ $products->links('pagination::bootstrap-5') }}
                                 {{-- <ul class="pagination pagination-sm m-0 float-right">
                                     <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                                     <li class="page-item"><a class="page-link" href="#">1</a></li>
