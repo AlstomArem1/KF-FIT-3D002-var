@@ -30,7 +30,7 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form" method="post" action="{{ route('admin.product.store') }}"
+                            <form role="form" method="post" action="{{ route('admin.product.update',['product'=>$product->id]) }}"
                                 enctype="multipart/form-data">
                                 <div class="card-body">
                                     <div class="form-group">
@@ -132,7 +132,7 @@
                                         <select name="product_category_id" class="custom-select">
                                             <option value="">---Please Select---</option>
                                             @foreach ($productCategories as $productCategory)
-                                                <option value="{{ $productCategory->id }}">{{ $productCategory->name }}
+                                                <option {{ $productCategory->id === $product->product_category_id ? 'selected' : ''}} value="{{ $productCategory->id }}">{{ $productCategory->name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -151,9 +151,10 @@
                                 <!-- /.card-body -->
 
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                                 @csrf
+                                @method('put')
                             </form>
                         </div>
                     </div>

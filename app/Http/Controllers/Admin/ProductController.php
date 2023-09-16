@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,12 @@ class ProductController extends Controller
     {
         //
        //Query Builder
-       $products = DB::table('products')->orderBy('created_at', 'desc')->paginate(2);
+       $products = DB::table('products')
+       ->select('products.*','product_categories.name as product_category_name')
+       ->leftJoin('product_categories','products.product_category_id','=','product_categories.id')
+       ->orderBy('created_at', 'desc')
+       ->paginate(2);
+
        return view('admin.pages.product.list', ['products' => $products]);
     }
 
@@ -98,9 +104,46 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateProductRequest $request, string $id)
     {
         //
+        $product = DB::table("products")->find($id);
+        $fileOriginalName = $request->image;
+
+        if($request->hasFile('image')){
+            $fileOriginalName = $request->file('image')->getClientOriginalName();
+            $fileName = pathinfo($fileOriginalName, PATHINFO_FILENAME);
+            $fileName .= '_'.time().'.'.$request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('images'), $fileName);
+
+            if(!is_null($fileOriginalName) && file_exists('images/'.$fileOriginalName)){
+                unlink('images/'.$fileOriginalName);
+            }
+
+        }
+
+        $check = DB::table('products')->insert([
+            "name" => $request->name,
+            "slug" => $request->slug,
+            "price" => $request->price,
+            "discount_price" =>$request->discount_price,
+            "short_description" => $request->short_description,
+            "description" => $request->description,
+            "information" => $request->information,
+            "qty" => $request->qty,
+            "shipping" => $request->shipping,
+            "weight" =>$request->weight,
+            "status" => $request->status,
+            "product_category_id" => $request->product_category_id,
+            "image" => $fileOriginalName,
+            "updated_at" => Carbon::now()
+
+        ]);
+        // dd($request->all());
+        $message = $check ? 'cap nhat thanh cong' : 'cap nhat that bai';
+
+        return redirect()->route('admin.product.index')->with('message',$message);
+
     }
 
     /**
@@ -131,4 +174,18 @@ class ProductController extends Controller
         return response()->json(['slug' => Str::slug($request->name, '-')]);
 
     }
+    public function uploadImage(Request $request){
+        if($request->hasFile('upload')){
+            $fileOriginalName = $request->file('image')->getClientOriginalName();
+            $fileName = pathinfo($fileOriginalName, PATHINFO_FILENAME);
+            $fileName .= '_'.time().'.'.$request->file('image')->getClientOriginalExtension();
+
+            $request->file('image')->move(public_path('images'), $fileName);
+
+            $url = asset('images/'.$fileName);
+            return response()->json(['fileName'=>$fileName,'uploaded'=>1,'url'=>$url]);
+
+        }
+    }
+
 }

@@ -57,5 +57,5 @@ Route::prefix('admin')->name('admin.')->group(function(){
     // php artisan make:controller Admin/Productroller --resource
 
     Route::post('product/slug',[ProductController::class, 'createSlug'])->name('product.create.slug');
-
+    Route::post('product/Ckeditor-upload-image',[ProductController::class, 'uploadImage'])->name('product.ckedit.upload.image');
 });

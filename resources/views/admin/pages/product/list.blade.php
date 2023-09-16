@@ -76,7 +76,12 @@
                                                     @method('delete')
                                                     <button type="sumbit" name="sumbit" class="btn btn-danger">Delete</button>
                                                   </form>
+
+
+                                                    <a href="{{'product/detail'}}" class="btn btn-primary">Edit</a>
+                                                    @csrf
                                                 </td>
+
                                             </tr>
                                         @empty
                                             <tr>

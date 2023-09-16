@@ -169,10 +169,12 @@
     <script>
         //https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js
         ClassicEditor
-            .create(document.querySelector('#short_description'))
-            .catch(error => {
-                console.error(error);
-            });
+            .create(document.querySelector('#short_description'),{
+                ckfinder: {
+                // Upload the images to the server using the CKFinder QuickUpload command.
+                uploadUrl: '{{ route('admin.product.ckedit.upload.image').'?_token='.csrf_token() }}'
+                 }
+            })
         ClassicEditor
             .create(document.querySelector('#description'))
             .catch(error => {
