@@ -19,7 +19,7 @@ class ProductController extends Controller
     {
         //
        //Query Builder
-       $products = DB::table('products')->paginate(3);
+       $products = DB::table('products')->orderBy('created_at', 'desc')->paginate(2);
        return view('admin.pages.product.list', ['products' => $products]);
     }
 
@@ -43,13 +43,15 @@ class ProductController extends Controller
         //
         //move_uploaded_file('image',$path);
         // dd($request->file('image')->getClientOriginalName());
+        // Tao hinh anh file
         if($request->hasFile('image')){
             $fileOriginalName = $request->file('image')->getClientOriginalName();
             $fileName = pathinfo($fileOriginalName, PATHINFO_FILENAME);
             $fileName .= '_'.time().'.'.$request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path('image'), $fileName);
+            $request->file('image')->move(public_path('images'), $fileName);
 
         }
+
         $check = DB::table('products')->insert([
             "name" => $request->name,
             "slug" => $request->slug,
@@ -63,6 +65,7 @@ class ProductController extends Controller
             "weight" =>$request->weight,
             "status" => $request->status,
             "product_category_id" => $request->product_category_id,
+            "image" => $fileName,
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now()
 
@@ -111,6 +114,7 @@ class ProductController extends Controller
         if(!is_null($image) && file_exists('images/'.$image)){
             unlink('images/'.$image);
         }
+
         // $request = DB::table('products')->where('id','=',$id)->delete();
         $result = DB::table('products')->delete($id);
         $message = $result ? 'xoa san phan thanh cong' : 'xoa san phan that bai';

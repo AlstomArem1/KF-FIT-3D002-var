@@ -19,7 +19,7 @@
                     <div class="col-sm-12 alert alert-success">
                         {{ session('message')}}
                     </div>
-                @endif
+                    @endif
                 </div>
             </div><!-- /.container-fluid -->
         </section>
@@ -61,8 +61,8 @@
                                                 <td>{{ $product->price }}</td>
                                                 <td>
                                                     @php
-                                                        $imagesLink = is_null($product->image) || !file_exists('image/'.$product->image)
-                                                        ? 'https://phutungnhapkhauchinhhang.com/up-content/uploads/2020/06/default-thumbnail.jpg'
+                                                        $imagesLink = is_null($product->image) || !file_exists('images/'.$product->image)
+                                                        ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'
                                                         : asset('images/'. $product->image);
                                                     @endphp
                                                     <img src="{{ $imagesLink }}" alt="{{ $product->name}}" width="150" height="150" />
@@ -88,7 +88,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
-                                {{ $products->links('pagination::bootstrap-5') }}
+                                {{ $products->links('admin.pagination.my-pagination') }}
                                 {{-- <ul class="pagination pagination-sm m-0 float-right">
                                     <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                                     <li class="page-item"><a class="page-link" href="#">1</a></li>
