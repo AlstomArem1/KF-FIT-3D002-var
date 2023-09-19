@@ -19,6 +19,10 @@ class ProductController extends Controller
     public function index()
     {
         //
+        //SELECT products.*, product_categories.name as product_category_name FROM `products`
+        //LEFT JOIN product_categories ON products.product_category_id = product_categories.id
+        //ORDER BY created_at desc
+        //LIMIT 0, 3
        //Query Builder
        $products = DB::table('products')
        ->select('products.*','product_categories.name as product_category_name')
@@ -89,8 +93,8 @@ class ProductController extends Controller
     {
         //
         $product = DB::table('products')->find($id);
-        $productCategories = DB::table('product_category')->where('status','=',1)->get();
-        return view('admin.pages.productCategory.detail',['product' => $product, 'productCategories' => $productCategories]);
+        $productCategories = DB::table('product_categories')->where('status','=',1)->get();
+        return view('admin.pages.product.detail',['product' => $product, 'productCategories' => $productCategories]);
     }
 
     /**
@@ -107,22 +111,21 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, string $id)
     {
         //
-        $product = DB::table("products")->find($id);
-        $fileOriginalName = $request->image;
+        $product = DB::table('products')->find($id);
+        $oldImageFileName = $product->image;
 
         if($request->hasFile('image')){
-            $fileOriginalName = $request->file('image')->getClientOriginalName();
-            $fileName = pathinfo($fileOriginalName, PATHINFO_FILENAME);
+            $fileOrginialName = $request->file('image')->getClientOriginalName();
+            $fileName = pathinfo($fileOrginialName, PATHINFO_FILENAME);
             $fileName .= '_'.time().'.'.$request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path('images'), $fileName);
+            $request->file('image')->move(public_path('images'),  $fileName);
 
-            if(!is_null($fileOriginalName) && file_exists('images/'.$fileOriginalName)){
-                unlink('images/'.$fileOriginalName);
+            if(!is_null($oldImageFileName) && file_exists('images/'.$oldImageFileName)){
+                unlink('images/'.$oldImageFileName);
             }
-
         }
 
-        $check = DB::table('products')->insert([
+        $check = DB::table('products')->where('id', '=', $id)->update([
             "name" => $request->name,
             "slug" => $request->slug,
             "price" => $request->price,
@@ -135,14 +138,16 @@ class ProductController extends Controller
             "weight" =>$request->weight,
             "status" => $request->status,
             "product_category_id" => $request->product_category_id,
-            "image" => $fileOriginalName,
+            "image" => $fileName ?? $oldImageFileName,
             "updated_at" => Carbon::now()
 
         ]);
         // dd($request->all());
         $message = $check ? 'cap nhat thanh cong' : 'cap nhat that bai';
 
-        return redirect()->route('admin.product.index')->with('message',$message);
+        $message = $check ? 'cap nhat san pham thanh cong' : 'cap nhat san pham that bai';
+        //session flash
+        return redirect()->route('admin.product.index')->with('message', $message);
 
     }
 

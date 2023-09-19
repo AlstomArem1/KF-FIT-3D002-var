@@ -30,7 +30,7 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form" method="post" action="{{ route('admin.product.update',['product'=>$product->id]) }}"
+                            <form role="form" method="post" action="{{ route('admin.product.update',['product'=> $product->id]) }}"
                                 enctype="multipart/form-data">
                                 <div class="card-body">
                                     <div class="form-group">
@@ -118,9 +118,9 @@
                                         <label>Status</label>
                                         <select name="status" class="custom-select">
                                             <option value="">---Please Select---</option>
-                                            <option {{ $product->status === '1' ? 'selected' : '' }} value="1">Show
+                                            <option {{ $product->status == '1' ? 'selected' : '' }} value="1">Show
                                             </option>
-                                            <option {{ $product->status === '0' ? 'selected' : '' }} value="0">Hide
+                                            <option {{ $product->status == '0' ? 'selected' : '' }} value="0">Hide
                                             </option>
                                         </select>
                                         @error('status')
