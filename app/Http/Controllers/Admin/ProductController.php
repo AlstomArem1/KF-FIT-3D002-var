@@ -23,12 +23,16 @@ class ProductController extends Controller
         //LEFT JOIN product_categories ON products.product_category_id = product_categories.id
         //ORDER BY created_at desc
         //LIMIT 0, 3
+
+        // dd(config('my-config.item-per-pages'));
+
        //Query Builder
        $products = DB::table('products')
        ->select('products.*','product_categories.name as product_category_name')
        ->leftJoin('product_categories','products.product_category_id','=','product_categories.id')
        ->orderBy('created_at', 'desc')
-       ->paginate(2);
+    //    ->get();
+       ->paginate(config('my-config.item-per-pages'));
 
        return view('admin.pages.product.list', ['products' => $products]);
     }

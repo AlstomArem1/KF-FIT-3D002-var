@@ -108,3 +108,11 @@
         <!-- /.content -->
     </div>
 @endsection
+@section('js-custom')
+    <script  type="text/javascript">
+        // let table = new DataTable('#table-product');
+        $('#table-product').dataTable( {
+        "pageLength": 2
+        } );
+    </script>
+@endsection
