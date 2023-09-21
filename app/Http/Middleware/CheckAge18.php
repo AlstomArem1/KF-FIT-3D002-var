@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckAge18
@@ -20,9 +22,15 @@ class CheckAge18
             $dob = $currentUser->dob;
             if(is_null($dob)){
                 return redirect()->route('dashboard');
-            }else{
-                return redirect()->route('login');
             }
+
+            $dataDob = Carbon::createFromFormat('Y-m-d H:i:s', $dob);
+            $diffYear = Carbon::now()->diffInYears($dataDob);
+            if($diffYear >= 18){
+                return $next($request);
+            }
+            return redirect()->route('dashboard');
         }
+        return redirect()->route('login');
     }
 }

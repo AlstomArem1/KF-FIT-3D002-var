@@ -16,18 +16,8 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // if(Auth::check()){
-        //     $currentUser = Auth::user();
-        //     $role = $currentUser->role;
-        //     if($role === 1){
-        //         return redirect()->route('dashboard');
-        //     }else{
-        //         return redirect()->route('login');
-        //     }
-        // }
         if(Auth::check() && Auth::user()->role){
             return $next($request);
-
         }
         return redirect()->route('login');
     }

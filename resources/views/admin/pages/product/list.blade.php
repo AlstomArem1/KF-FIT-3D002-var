@@ -42,7 +42,8 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table class="table table-bordered">
+                                <table id="table-product" class="table table-bordered">
+
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
@@ -90,7 +91,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
-                                {{ $products->links('admin.pagination.my-pagination') }}
+                                {{-- {{ $products->links('admin.pagination.my-pagination') }} --}}
                                 {{-- <ul class="pagination pagination-sm m-0 float-right">
                                     <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                                     <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -112,7 +113,7 @@
     <script  type="text/javascript">
         // let table = new DataTable('#table-product');
         $('#table-product').dataTable( {
-        "pageLength": 2
+        "pageLength": 1
         } );
     </script>
 @endsection

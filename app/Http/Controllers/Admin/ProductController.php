@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -31,8 +32,9 @@ class ProductController extends Controller
        ->select('products.*','product_categories.name as product_category_name')
        ->leftJoin('product_categories','products.product_category_id','=','product_categories.id')
        ->orderBy('created_at', 'desc')
-    //    ->get();
-       ->paginate(config('my-config.item-per-pages'));
+    //    ->paginate(3);
+       ->get();
+    //    ->paginate(config('my-config.item-per-pages'));
 
        return view('admin.pages.product.list', ['products' => $products]);
     }
@@ -147,11 +149,13 @@ class ProductController extends Controller
 
         ]);
         // dd($request->all());
-        $message = $check ? 'cap nhat thanh cong' : 'cap nhat that bai';
-
-        $message = $check ? 'cap nhat san pham thanh cong' : 'cap nhat san pham that bai';
+                //QueryBuidlder
+        // $result = DB::table('products')->delete($id);
+        //ELoquent
+        $productData = Product::find((int)$id);
+        $productData->delete();
         //session flash
-        return redirect()->route('admin.product.index')->with('message', $message);
+        return redirect()->route('admin.product.index')->with('message','xoa san pham thanh cong');
 
     }
 

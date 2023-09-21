@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/summernote/summernote-bs4.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 
 </head>
 
@@ -91,9 +91,8 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('assets/admin/dist/js/demo.js') }}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
-
+    <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     @yield('js-custom')
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </body>
 
 </html>
