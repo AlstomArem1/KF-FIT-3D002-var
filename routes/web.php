@@ -1,7 +1,8 @@
 <?php
-use App\Http\Controllers\Admin\ProductCategory;
+
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProductCategoryController;
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -39,17 +40,18 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('user', [UserController::class, 'index'])->name('user.list');
 
     //Product Category
-    Route::get('product_category', [ProductCategory::class, 'index'])->name('productCategory.list');
+    Route::get('product_category', [ProductCategoryController::class, 'index'])->name('productCategory.list');
     //Add
-    Route::get('product_category/add', [ProductCategory::class, 'add'])->name('productCategory.add');
+    Route::get('product_category/add', [ProductCategoryController::class, 'add'])->name('productCategory.add');
     //Store
-    Route::post('product_category/store', [ProductCategory::class, 'store'])->name('productCategory.store');
+    Route::post('product_category/store', [ProductCategoryController::class, 'store'])->name('productCategory.store');
+
     //Detail
-    Route::get('product_category/{id}', [ProductCategory::class, 'detail'])->name('productCategory.detail');
+    Route::get('product_category/{id}', [ProductCategoryController::class, 'detail'])->name('productCategory.detail');
     //Update
-    Route::post('product_category/update/{id}', [ProductCategory::class, 'update'])->name('productCategory.update');
+    Route::post('product_category/update/{id}', [ProductCategoryController::class, 'update'])->name('productCategory.update');
     //Delete
-    Route::get('product_category/destroy/{id}', [ProductCategory::class, 'destroy'])->name('productCategory.destroy');
+    Route::get('product_category/destroy/{id}', [ProductCategoryController::class, 'destroy'])->name('productCategory.destroy');
 
     //Product
     // Route::get('product', [ProductController::class, 'index'])->name('product.list');
@@ -57,6 +59,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
     // php artisan make:controller Admin/Productroller --resource
 
     Route::post('product/slug',[ProductController::class, 'createSlug'])->name('product.create.slug');
+
+    Route::post('product/{product}/restore',[ProductController::class, 'restore'])->name('product.restore');
+
     Route::post('product/Ckeditor-upload-image',[ProductController::class, 'uploadImage'])->name('product.ckedit.upload.image');
 });
 

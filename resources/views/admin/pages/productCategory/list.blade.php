@@ -94,14 +94,15 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
-                                <ul class="pagination pagination-sm m-0 float-right">
+                                {{ $productCategories->links() }}
+                                {{-- <ul class="pagination pagination-sm m-0 float-right">
                                     <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                                     @for ($i = 1; $i <= $totalPages; $i++)
                                         <li class="page-item {{ $i == $currentPage ? 'active' : '' }}"><a class="page-link" href="?page={{ $i }}">{{ $i }}</a></li>
 
                                     @endfor
                                     <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </div>
                         <!-- /.card -->

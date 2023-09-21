@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Product;
+use App\Models\ProductCategory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +27,7 @@ class ProductFactory extends Factory
         //Query Builder
         // $productCategory = DB::table('product_categories')->get();
         //Laravel Eloquent
-        $productCategoryIds = Product::select('id')->get();
+        $productCategoryIds = ProductCategory::select('id')->get();
 
         return [
             "name" => $name,

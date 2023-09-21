@@ -28,14 +28,15 @@ class ProductController extends Controller
         // dd(config('my-config.item-per-pages'));
 
        //Query Builder
-       $products = DB::table('products')
-       ->select('products.*','product_categories.name as product_category_name')
-       ->leftJoin('product_categories','products.product_category_id','=','product_categories.id')
-       ->orderBy('created_at', 'desc')
-    //    ->paginate(3);
-       ->get();
+    //    $products = DB::table('products')
+    //    ->select('products.*','product_categories.name as product_category_name')
+    //    ->leftJoin('product_categories','products.product_category_id','=','product_categories.id')
+    //    ->orderBy('created_at', 'desc')
+    // //    ->paginate(3);
+    //    ->get();
     //    ->paginate(config('my-config.item-per-pages'));
 
+        $products  = Product::withTrashed()->paginate(config('my-config.item-per-pages'));
        return view('admin.pages.product.list', ['products' => $products]);
     }
 
@@ -199,6 +200,12 @@ class ProductController extends Controller
             return response()->json(['fileName'=>$fileName,'uploaded'=>1,'url'=>$url]);
 
         }
+    }
+    public function restore(string $id){
+        $product = Product::withTrashed()->find($id);
+        $product->restore();
+
+        return redirect()->route('admin.product.index')->with('message','khoi phuc san phan thanh cong');
     }
 
 }

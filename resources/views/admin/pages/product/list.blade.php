@@ -78,8 +78,10 @@
                                                     <button type="sumbit" name="sumbit" class="btn btn-danger">Delete</button>
                                                   </form>
                                                     <a href="{{ route('admin.product.show',['product' =>  $product->id]) }}" class="btn btn-primary">Edit</a>
+                                                    @if (!is_null($product->deleted_at))
+                                                        <a href="{{ route('admin.product.restore',['product' =>  $product->id]) }}" class="btn btn-success">Restore</a>
+                                                    @endif
                                                 </td>
-
                                             </tr>
                                         @empty
                                             <tr>
@@ -91,7 +93,8 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
-                                {{-- {{ $products->links('admin.pagination.my-pagination') }} --}}
+                                {{-- 'admin.pagination.my-pagination' --}}
+                                {{ $products->links() }}
                                 {{-- <ul class="pagination pagination-sm m-0 float-right">
                                     <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                                     <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -111,9 +114,9 @@
 @endsection
 @section('js-custom')
     <script  type="text/javascript">
-        // let table = new DataTable('#table-product');
-        $('#table-product').dataTable( {
-        "pageLength": 1
-        } );
+        let table = new DataTable('#table-product');
+        // $('#table-product').dataTable( {
+        // "pageLength": 1
+        // } );
     </script>
 @endsection
