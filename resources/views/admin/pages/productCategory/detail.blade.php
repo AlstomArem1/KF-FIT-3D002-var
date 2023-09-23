@@ -39,7 +39,7 @@
                                 </div>
                             @endif --}}
                             <!-- form start -->
-                            <form role="form" method="post" action="{{ route('admin.productCategory.update',['id'=>$productCategory->id]) }}">
+                            <form role="form" method="post" action="{{ route('admin.productCategory.update',['product_category'=>$productCategory->id]) }}">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="name">Name</label>

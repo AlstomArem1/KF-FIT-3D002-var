@@ -31,13 +31,13 @@ class ProductController extends Controller
     //    $products = DB::table('products')
     //    ->select('products.*','product_categories.name as product_category_name')
     //    ->leftJoin('product_categories','products.product_category_id','=','product_categories.id')
+    // // ->whereNull('deleted_at')
     //    ->orderBy('created_at', 'desc')
-    // //    ->paginate(3);
-    //    ->get();
+    // //   ->get();
     //    ->paginate(config('my-config.item-per-pages'));
-
-        $products  = Product::withTrashed()->paginate(config('my-config.item-per-pages'));
-       return view('admin.pages.product.list', ['products' => $products]);
+    //Eloquent
+    $products = Product::withTrashed()->with('product_category')->paginate(config('my-config.item-per-pages'));
+        return view('admin.pages.product.list', ['products' => $products]);
     }
 
     /**
@@ -155,6 +155,7 @@ class ProductController extends Controller
         //ELoquent
         $productData = Product::find((int)$id);
         $productData->delete();
+
         //session flash
         return redirect()->route('admin.product.index')->with('message','xoa san pham thanh cong');
 
@@ -202,10 +203,15 @@ class ProductController extends Controller
         }
     }
     public function restore(string $id){
+        //Query Builder
+        // $product= DB::table('products')->find($id);
+        // $product->update(['deleted_at' => null]);
+
+        //Eloquent
         $product = Product::withTrashed()->find($id);
         $product->restore();
 
-        return redirect()->route('admin.product.index')->with('message','khoi phuc san phan thanh cong');
+        return redirect()->route('admin.product.index')->with('message','khoi phuc san pham thanh cong');
     }
 
 }

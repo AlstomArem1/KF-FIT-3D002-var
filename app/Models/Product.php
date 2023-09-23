@@ -12,6 +12,6 @@ class Product extends Model
     protected $table = 'products';
 
     public function product_category(){
-        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');//dau
     }
-}
+}//->wed.php

@@ -42,6 +42,11 @@
                                                     <option {{ $sortBy === 'latest' ? 'selected' : ''}} value="latest">Latest</option>
                                                     <option  {{ $sortBy === 'oldest' ? 'selected' : ''}} value="oldest">Oldest</option>
                                                 </select>
+                                                <select name="status">
+                                                    <option value="">---Please Select---</option>
+                                                    <option value="1">Show</option>
+                                                    <option value="0">Hide</option>
+                                                </select>
                                                 <button class="btn btn-primary" type="submit" >Search</button>
 
                                             </form>
@@ -77,10 +82,10 @@
                                           </td>
                                           <td>{{$productCategory->created_at}}</td>
                                           <td>
-                                            <a href="{{ route('admin.productCategory.detail',['id' => $productCategory->id]) }}" class="btn btn-primary">Detail</a>
+                                            <a href="{{ route('admin.productCategory.detail',['product_category' => $productCategory->id]) }}" class="btn btn-primary">Detail</a>
                                           </td>
                                           <td>
-                                            <a onclick="return confirm('Are you sure')" class="btn btn-danger" href="{{ route('admin.productCategory.destroy', ['id'=>$productCategory->id]) }}">Delete</a>
+                                            <a onclick="return confirm('Are you sure')" class="btn btn-danger" href="{{ route('admin.productCategory.destroy', ['product_category'=>$productCategory->id]) }}">Delete</a>
                                           </td>
                                        </tr>
                                        @empty

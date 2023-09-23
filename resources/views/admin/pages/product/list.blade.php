@@ -68,7 +68,9 @@
                                                     @endphp
                                                     <img src="{{ $imagesLink }}" alt="{{ $product->name}}" width="150" height="150" />
                                                 </td>
-                                                <td>{!! $product->short_description !!}</td>
+                                                {{-- <td>{!! $product->short_description !!}</td> --}}
+                                                <td>{{ $product->product_category_name }}</td>
+                                                {{-- <td>{{ $product->product_category->name }}</td> --}}
                                                 <td>
                                                   <form
                                                   action="{{ route('admin.product.destroy',['product' => $product->id ]) }}"
@@ -78,7 +80,7 @@
                                                     <button type="sumbit" name="sumbit" class="btn btn-danger">Delete</button>
                                                   </form>
                                                     <a href="{{ route('admin.product.show',['product' =>  $product->id]) }}" class="btn btn-primary">Edit</a>
-                                                    @if (!is_null($product->deleted_at))
+                                                    @if(!is_null($product->deleted_at))
                                                         <a href="{{ route('admin.product.restore',['product' =>  $product->id]) }}" class="btn btn-success">Restore</a>
                                                     @endif
                                                 </td>

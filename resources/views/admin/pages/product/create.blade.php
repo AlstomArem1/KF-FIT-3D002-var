@@ -175,6 +175,7 @@
                 uploadUrl: '{{ route('admin.product.ckedit.upload.image').'?_token='.csrf_token() }}'
                  }
             })
+        //Call the ClassicEditor.create() method to display the editor
         ClassicEditor
             .create(document.querySelector('#description'))
             .catch(error => {
@@ -197,13 +198,14 @@
                     url: "{{ route('admin.product.create.slug') }}", //action of form
                     data: {
                         'name': name,
-                        '_token': '{{ csrf_token() }}'
+                        '_token': '{{ csrf_token() }}'//va 404: csrf
                     },
                     success: function(response) {
-                        $('#slug').val(response.slug);
+                        $('#slug').val(response.slug);//sao chep
                     }
                 });
             });
         });
+
     </script>
 @endsection

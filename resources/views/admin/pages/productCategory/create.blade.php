@@ -59,7 +59,7 @@
                                             <option {{old('status') === '0'? 'selected' : '' }} value="0">Hide</option>
                                         </select>
                                         @error('status')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
