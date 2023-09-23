@@ -47,7 +47,7 @@
     <script src="{{ asset('assets/client/js/mixitup.min.js') }}"></script>
     <script src="{{ asset('assets/client/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/client/js/main.js') }}"></script>
-
+    @yield('js-custom')
 
 
 </body>
