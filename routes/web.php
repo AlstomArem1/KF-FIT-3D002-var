@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
+// Route::get('/lg', function () {
 //     return view('welcome');
 // });
 
@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-Route::prefix('admin')->name('admin.')->group(function(){
+Route::prefix('admin')->middleware('auth.admin')->name('admin.')->group(function(){
 
 
     //User
