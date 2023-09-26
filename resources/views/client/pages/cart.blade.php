@@ -36,8 +36,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               @foreach ($cart as $item)
-                               <tr>
+                               @foreach ($cart as $productId => $item)
+                               <tr id={{ $productId }}>
                                     <td class="shoping__cart__item">
                                         <img src="{{ $item['image'] ?? '' }}" alt="">
                                         <h5>{{ $item['name'] }}</h5>
@@ -47,16 +47,22 @@
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="{{ $item['qty'] }}">
+                                            <div class="pro-qty"
+                                            data-id="{{ $productId }}"
+                                            data-url="{{ route('product.update-item-in-cart',['productId' => $productId]) }}"
+                                            >
+                                                <input class="qty" type="text" value="{{ $item['qty'] }}">
                                             </div>
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
                                         ${{ number_format($item['qty'] * $item['price'], 2) }}
                                     </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
+                                    <td
+                                    class="shoping__cart__item__close">
+                                        <span data-id="{{ $productId }}"
+                                         data-url="{{ route('product.delete-item-in-cart',['productId' => $productId]) }}"
+                                            class="icon_close"></span>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -110,4 +116,51 @@
     </div>
 }
 
+@endsection
+
+@section('js-custom')
+    <script>
+        $(document).ready(function() {
+            $('.icon_close').on('click', function() {
+                var url = $(this).data('url');
+                var id = $(this).data('id');
+                $.ajax({
+                    method: 'get', //method form
+                    url: url, //action form
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            text: response.message,
+                        });
+                        $('tr#' + id).empty();
+                    }
+                });
+            });
+            $('.qtybtn').on('click',function(){
+                var button = $(this);
+                var id = button.parent().data('id');
+
+                var qty = parseInt(button.siblings('qty').val());
+                var url = button.parent().data('url');
+                if(button.hasClass('inc')){
+                    qty += 1;
+
+                } else {
+                    qty = (qty < 0) ? 0 : (qty -= 1);
+                }
+                url += "/" + qty;
+                $.ajax({
+                    method: 'get',
+                    url: url,
+                    success: function(response){
+                        Swal.fire({
+                            icon: 'success',
+                            text: response.message,
+                        });
+                        $('tr#' + id).empty();
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

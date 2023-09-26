@@ -24,6 +24,9 @@ class CartController extends Controller
             'qty' => ($cart[$productId]['qty'] ?? 0) + 1
         ];
         session()->put('cart',$cart);
+        $toral_price = $this->calculateTotalPrice($cart);
+        $toral_items = count($cart);
+
         // dd(session()->get('cart'));
         return response()->json(['message' => 'Add product to Cart success']);
 
@@ -31,5 +34,23 @@ class CartController extends Controller
     public function indexCart(){
         $cart = session()->get('cart') ?? [];
         return view('client.pages.cart',['cart' => $cart]);
+    }
+    public function DeleteItem($productId){
+        $cart = session()->get('cart',[]);
+        if(array_key_exists($productId, $cart)){
+            unset($cart[$productId]);
+            session()->put('cart',$cart);
+
+        }
+        return response()->json(['message' => 'deleta item success']);
+    }
+    public function UpdateItem($productId, $qty){
+        $cart = session()->get('cart',[]);
+        if(array_key_exists($productId, $cart)){
+            $cart[$productId]['qty'] = $qty;
+            session()->put('cart', $cart);
+
+        }
+        return response()->json(['message' => 'Update item success']);
     }
 }
