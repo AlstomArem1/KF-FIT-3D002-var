@@ -75,8 +75,10 @@
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
                         <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                        <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Upadate Cart</a>
+                        <a
+                        data-url="{{ route('product.delete-item-in-cart') }}"
+                        href="#" class="primary-btn cart-btn cart-btn-right delete-cart"><span class="icon_loading"></span>
+                            Delete Cart</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -97,7 +99,8 @@
                             <li>Subtotal <span>${{ number_format($total, 2) }}</span></li>
                             <li>Total <span>${{ number_format($total, 2) }}</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="{{ route('checkout') }}" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        @csrf
                     </div>
                 </div>
             </div>
@@ -175,6 +178,19 @@
                     }
                 });
             });
-        });
+            $('.delete-cart').on('click',function(){
+                var url = $(this).data('url');
+                $.ajax({
+                    method: 'get', //method form
+                    url: url,
+                    success: function(response){
+                        Swal.fire({
+                            icon: 'success',
+                            text: response.message,
+                        });
+                    }
+                });
+            });
+
     </script>
 @endsection

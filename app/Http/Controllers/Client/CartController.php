@@ -72,4 +72,16 @@ class CartController extends Controller
             'total_items' => $total_items
         ]);
     }
+    public function emptyCart(){
+       session()->get('cart',[]);
+       return response()->json([
+        'message' => 'Cart item success',
+        'total_price' => 0,
+        'total_items' => 0
+        ]);
+    }
+    public function checout(){
+        $cart = session()->get('cart',[]);
+        return view('client.pages.checkout',['cart' => $cart]);
+    }
 }

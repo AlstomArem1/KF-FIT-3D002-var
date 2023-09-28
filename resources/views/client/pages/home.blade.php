@@ -390,7 +390,18 @@
                             .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
                         // alert(response.message);
                     }
+                    statusCode:{
+                        401:function(){
+                            window.location.href = '{{ route('login')}}';
 
+                        },
+                        404: function(){
+                            Swal.fire({
+                                icon: 'error',
+                                text: "Can't add product to cart",
+                            });
+                        },
+                    },
                 });
             });
         });

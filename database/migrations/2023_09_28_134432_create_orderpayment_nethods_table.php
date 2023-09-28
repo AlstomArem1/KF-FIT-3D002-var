@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('orderpayment_nethods', function (Blueprint $table) {
+            $table->id();
+            $table->string('address',255)->nullable();
+            $table->text('note')->nullable();
+            $table->string('status')->nullable();
+            $table->float('subtotal')->nullable()->unsigned();
+            $table->float('total')->nullable()->unsigned();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('orderpayment_nethods');
+    }
+};
