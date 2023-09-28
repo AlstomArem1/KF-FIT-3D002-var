@@ -24,17 +24,29 @@ class CartController extends Controller
             'qty' => ($cart[$productId]['qty'] ?? 0) + 1
         ];
         session()->put('cart',$cart);
-        $toral_price = $this->calculateTotalPrice($cart);
-        $toral_items = count($cart);
+        $total_price = $this->calculateTotalPrice($cart);
+        $total_items = count($cart);
 
         // dd(session()->get('cart'));
-        return response()->json(['message' => 'Add product to Cart success']);
-
+        return response()->json([
+            'message' => 'Add product to Cart success',
+            'total_price' => $total_price,
+            'total_items' => $total_items
+        ]);
     }
+    public function calculateTotalPrice($cart):float{
+        $total = 0;
+        foreach($cart as $item){
+            $total += $item['price'] * $item['qty'];
+        }
+        return $total;
+    }
+
     public function indexCart(){
         $cart = session()->get('cart') ?? [];
         return view('client.pages.cart',['cart' => $cart]);
     }
+
     public function DeleteItem($productId){
         $cart = session()->get('cart',[]);
         if(array_key_exists($productId, $cart)){
@@ -42,8 +54,9 @@ class CartController extends Controller
             session()->put('cart',$cart);
 
         }
-        return response()->json(['message' => 'deleta item success']);
+        return response()->json(['message' => 'Deleta item success']);
     }
+
     public function UpdateItem($productId, $qty){
         $cart = session()->get('cart',[]);
         if(array_key_exists($productId, $cart)){
@@ -51,6 +64,12 @@ class CartController extends Controller
             session()->put('cart', $cart);
 
         }
-        return response()->json(['message' => 'Update item success']);
+        $total_price = $this->calculateTotalPrice($cart);
+        $total_items = count($cart);
+        return response()->json([
+            'message' => 'Update item success',
+            'total_price' => $total_price,
+            'total_items' => $total_items
+        ]);
     }
 }

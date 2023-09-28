@@ -379,12 +379,16 @@
                     url: url, //action form
                     success: function(response) {
                         console.log(response);
-                        // Swal.fire({
-                        //     icon: 'success',
-                        //     // title: 'Notification',
-                        //     text: response.message,
-                        // });
-                        alert(response.message);
+                        Swal.fire({
+                            icon: 'success',
+                            // title: 'Notification',
+                            text: response.message,
+
+                        });
+                        $('#total-items-cart').html(response.total_items);
+                        $('#total-price-cart').html('$' + response.total_price.toFixed(2)
+                            .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                        // alert(response.message);
                     }
 
                 });
