@@ -31,7 +31,7 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Phone<span>*</span></p>
-                                        <input name="phone" type="text">
+                                        <input name="phone" value="{{ Auth::user()->phone }}" type="text">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
