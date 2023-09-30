@@ -389,7 +389,7 @@
                         $('#total-price-cart').html('$' + response.total_price.toFixed(2)
                             .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
                         // alert(response.message);
-                    }
+                    },
                     statusCode:{
                         401:function(){
                             window.location.href = '{{ route('login')}}';

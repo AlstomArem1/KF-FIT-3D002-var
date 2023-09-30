@@ -11,7 +11,7 @@ class CartController extends Controller
     //
     public function AddToCart($productId){
 
-        $product = Product::find($productId);
+        $product = Product::findOrFail($productId);
 
         $cart = session()->get('cart') ?? [];
         $imagesLink = is_null($product->image) || !file_exists('images/' . $product->image)
@@ -54,7 +54,9 @@ class CartController extends Controller
             session()->put('cart',$cart);
 
         }
-        return response()->json(['message' => 'Deleta item success']);
+        return response()->json([
+            'message' => 'Delete item success'
+        ]);
     }
 
     public function UpdateItem($productId, $qty){
@@ -73,15 +75,15 @@ class CartController extends Controller
         ]);
     }
     public function emptyCart(){
-       session()->get('cart',[]);
-       return response()->json([
-        'message' => 'Cart item success',
-        'total_price' => 0,
-        'total_items' => 0
+        session()->put('cart', []);
+        return response()->json([
+            'message' => 'Cart delete success',
+            'total_price' => 0,
+            'total_items' => 0
         ]);
     }
     public function checout(){
-        $cart = session()->get('cart',[]);
-        return view('client.pages.checkout',['cart' => $cart]);
+        $cart = session()->get('cart', []);
+        return view('client.pages.checkout', ['cart' => $cart]);
     }
 }

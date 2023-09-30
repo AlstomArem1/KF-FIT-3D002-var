@@ -11,14 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orderpayment_nethods', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('address',255)->nullable();
+            $table->string('address', 255)->nullable();
             $table->text('note')->nullable();
             $table->string('status')->nullable();
-            $table->float('subtotal')->nullable()->unsigned();
-            $table->float('total')->nullable()->unsigned();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->double('subtotal')->nullable()->unsigned();
+            $table->double('total')->nullable()->unsigned();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orderpayment_nethods');
+        Schema::dropIfExists('orders');
     }
 };

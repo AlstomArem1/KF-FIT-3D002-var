@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -84,5 +85,7 @@ Route::middleware('auth')->group(function(){
     Route::get('cart', [CartController::class, 'indexCart'])->name('cart.index');
     Route::get('product/delete-item-in-cart', [CartController::class, 'emptyCart'])->name('product.delete-item-in-cart');
     Route::get('checkout', [CartController::class, 'checout'])->name('checkout');
+    Route::post('placeorder',[OrderController::class, 'placeOrder'])->name('place-order');
+
 
 });
