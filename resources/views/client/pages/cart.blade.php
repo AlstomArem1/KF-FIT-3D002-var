@@ -127,7 +127,7 @@
                 var url = $(this).data('url');
                 var id = $(this).data('id');
                 $.ajax({
-                    method: 'post',
+                    method: 'get',
                     url: url,
                     data: {
                         'name': '1'

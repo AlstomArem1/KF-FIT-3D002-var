@@ -69,12 +69,12 @@
                                 </div>
                                 <div class="checkout__input__checkbox">
                                     Cash On Delivery
-                                    <input name="payment_method" type="checkbox" id="cod" value="cod">
+                                    <input name="payment_method" type="radio" id="cod" value="cod">
                                     <span class="cod"></span>
                                 </div>
                                 <div class="checkout__input__checkbox">
                                     VNPay
-                                    <input name="payment_method" type="checkbox" id="vnpay" value="vnpay">
+                                    <input name="payment_method" type="radio" id="vnpay" value="vnpay">
                                     <span class="vnpay"></span>
                                 </div>
                                 <button type="submit" class="site-btn">PLACE ORDER</button>

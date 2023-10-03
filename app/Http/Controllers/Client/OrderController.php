@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Mail\MailToAdmin;
 use App\Mail\MailToCustomer;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -50,6 +51,14 @@ class OrderController extends Controller
             //Elaquent xet phpadmin =>http.checkout > orders
 
 
+             //Eloquent - 1
+            // $orderPaymentMethod = new OrderPaymentMethod;
+            // $orderPaymentMethod->order_id  = $order->id;
+            // $orderPaymentMethod->payment_provider = $request->payment_method;
+            // $orderPaymentMethod->status = OrderPaymentMethod::STATUS_PENDING;
+            // $orderPaymentMethod->total = $order->total; //$total
+            // $orderPaymentMethod->save();
+
             //Eloquent -2 - Mass Assigament
             $orderPaymentMethod= OrderPaymentMethod::create([
                 'order_id' => $order->id,
@@ -66,7 +75,11 @@ class OrderController extends Controller
 
             DB::commit();
 
+            //Send mail to customer to cofirm order
+            //Mail::to(Auth::user()->email)->send(new MailToCustomer);
             Mail::to('thienthantoanthangnumber1@gmail.com')->send(new MailToCustomer($order));
+            //Send mail to admin to prepare
+            Mail::to(config('my-config.admin-email'))->send(new MailToAdmin($order, $user));
 
             return redirect()->route('home.index');
         }
@@ -74,7 +87,5 @@ class OrderController extends Controller
             dd($exception->getMessage());
             DB::rollBack();
         }
-
-
     }
 }
