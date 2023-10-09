@@ -33,7 +33,6 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-
                                             <th style="width: 10px">Number</th>
                                             <th>Name</th>
                                             <th>Email</th>
@@ -41,11 +40,9 @@
                                             <th>Updated At</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr>
-
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>

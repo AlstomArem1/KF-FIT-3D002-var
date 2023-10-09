@@ -151,8 +151,9 @@ class OrderController extends Controller
             return redirect()->route('home.index');
         }
         catch(\Exception $exception){
-            dd($exception->getMessage());
             DB::rollBack();
+            dd($exception->getMessage());
+
         }
     }
     public function vnpayCallback(Request $request){

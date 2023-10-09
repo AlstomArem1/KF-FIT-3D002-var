@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\Client\GoogleController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\ProfileController;
@@ -66,6 +67,9 @@ Route::prefix('admin')->middleware('auth.admin')->name('admin.')->group(function
     Route::get('product/{product}/restore',[ProductController::class, 'restore'])->name('product.restore');
     Route::post('product/slug',[ProductController::class, 'createSlug'])->name('product.create.slug');
     Route::post('product/Ckeditor-upload-image',[ProductController::class, 'uploadImage'])->name('product.ckedit.upload.image');
+
+    //Dashboard
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 // Route::get('test', function (){return '<h1>Test</h1>';})->middleware('auth.admin');
@@ -93,31 +97,54 @@ Route::middleware('auth')->group(function(){
     Route::get('vnpay-callback', [OrderController::class, 'vnpayCallback'])->name('vnpay-callback');
 
 
+
+
 });
 
 // Route::get('text-send-mail',function(){
 // //use Illuminate\Support\Facades\Mail;
 //    // Mail::to('thienthantoanthangnumber1@gmail.com')->send(new MailToCustomer);
 // });
-Route::get('test', function(){
-    $order = Order::find(17);
-    $orderItems = $order->order_items;
-    $cart = [];
+// Route::get('test', function(){
+//     $order = Order::find(17);
+//     $orderItems = $order->order_items;
+//     $cart = [];
 
-    foreach($orderItems as $item){
-        $product = Product::find($item->product_id);
-        $imagesLink = is_null($product->image)
-        || !file_exists('images/' . $product->image)
-        ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'
-        : asset('images/' . $product->image);
-        $cart[$item->product_id] = [
-            'name' => $item->product_name,
-            'price' => $item->product_price,
-            'image' => $imagesLink,
-            'qty' => $item->qty
-        ];
-    }
-    dd($cart);
-    // dd(session()->get('cart', []));
-    dd($orderItems);
+//     foreach($orderItems as $item){
+//         $product = Product::find($item->product_id);
+//         $imagesLink = is_null($product->image)
+//         || !file_exists('images/' . $product->image)
+//         ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'
+//         : asset('images/' . $product->image);
+//         $cart[$item->product_id] = [
+//             'name' => $item->product_name,
+//             'price' => $item->product_price,
+//             'image' => $imagesLink,
+//             'qty' => $item->qty
+//         ];
+//     }
+//     dd($cart);
+//     // dd(session()->get('cart', []));
+//     dd($orderItems);
+// });
+
+Route::get('google-redirect',[GoogleController::class, 'redirect'])->name('google.redirect');
+Route::get('google-callback', [GoogleController::class, 'callback'])->name('google.callback');
+
+Route::get('test-send-sms', function(){
+    // Your Account SID and Auth Token from console.twilio.com
+    $sid = env('TWILIO_ACCOUNT_SID');
+    $token = env('TWILIO_AUTH_TOKEN');
+    $client = new Twilio\Rest\Client($sid, $token);
+     // Use the Client to make requests to the Twilio REST API
+     $client->messages->create(
+        // The number you'd like to send the message to
+        '+84352405575',
+        [
+            // A Twilio phone number you purchased at https://console.twilio.com
+            'from' => env('TWILIO_PHONE_NUMBER'),
+            // The body of the text message you'd like to send
+            'body' => "Test Send SMS"
+        ]
+    );
 });
