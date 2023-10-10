@@ -23,8 +23,9 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable(@json($arrayDatas));
             var options = {
-                title: 'Order Summary',
-                is3D: true,
+                title: 'My Daily Activities',
+                pieHole: 0.4,
+
             };
             var chart = new google.visualization.PieChart(document.getElementById('order-summary'));
             chart.draw(data, options);

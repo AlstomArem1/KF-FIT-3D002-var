@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
@@ -15,7 +14,6 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,9 +25,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/lg', function () {
-//     return view('welcome');
-// });
+Route::get('/lg', function () {
+    return view('welcome');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -42,7 +40,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-Route::prefix('admin')->middleware('auth')->name('admin.')->group(function(){
+Route::prefix('admin')->middleware('auth.admin')->name('admin.')->group(function(){
 
 
     //User
@@ -70,8 +68,8 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function(){
     Route::post('product/slug',[ProductController::class, 'createSlug'])->name('product.create.slug');
     Route::post('product/Ckeditor-upload-image',[ProductController::class, 'uploadImage'])->name('product.ckedit.upload.image');
 
-     //Dashboard
-     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    //Dashboard
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 // Route::get('test', function (){return '<h1>Test</h1>';})->middleware('auth.admin');
@@ -103,10 +101,7 @@ Route::middleware('auth')->group(function(){
 
 });
 
-// Route::get('text-send-mail',function(){
-// //use Illuminate\Support\Facades\Mail;
-//    // Mail::to('thienthantoanthangnumber1@gmail.com')->send(new MailToCustomer);
-// });
+
 // Route::get('test', function(){
 //     $order = Order::find(17);
 //     $orderItems = $order->order_items;
@@ -138,11 +133,10 @@ Route::get('test-send-sms', function(){
     $sid = env('TWILIO_ACCOUNT_SID');
     $token = env('TWILIO_AUTH_TOKEN');
     $client = new Twilio\Rest\Client($sid, $token);
-
-    // Use the Client to make requests to the Twilio REST API
-    $client->messages->create(
+     // Use the Client to make requests to the Twilio REST API
+     $client->messages->create(
         // The number you'd like to send the message to
-        '+84388609749',
+        '+84352405575',
         [
             // A Twilio phone number you purchased at https://console.twilio.com
             'from' => env('TWILIO_PHONE_NUMBER'),
